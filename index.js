@@ -5,15 +5,15 @@ const app = express()
 const path = require('path')
 // add template engine
 const hbs = require('express-handlebars');
-// setup template engine direcrory and files extensions
-app.set('views', path.join(_dirname, 'views'));
-app.set('vew engine', 'hbs');
+// setup template engine directory and files extensions
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'hbs');
 app.engine('hbs', hbs.engine({
-     extname: 'hbs',
+    extname: 'hbs',
     defaultLayout: 'main',
-    laoyoutsDir: _dirname + '/views/layouts/',
+    layoutsDir: __dirname + '/views/layouts/',
 }))
-// setup static public dir
+// setup static public directory
 app.use(express.static('public'));
 
 const mysql = require('mysql')
@@ -31,8 +31,21 @@ var con = mysql.createConnection({
 
 con.connect(function(err) {
     if (err) throw err;
-    console.log("Connected to joga_mysql db");
+    console.log("Connected to yoga_mysql db");
 })
+
+// show all articles - index page
+app.get('/', (req, res) => {
+    let query = "SELECT * FROM article";
+    let articles = []
+    con.query(query, (err, result) => {
+        if (err) throw err;
+        articles = result
+        res.render('index', {
+            articles: articles
+        })
+    })
+});
 
 // app start point
 app.listen(3001, () => {
