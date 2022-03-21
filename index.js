@@ -13,6 +13,9 @@ app.engine('hbs', hbs.engine({
     defaultLayout: 'main',
     laoyoutsDir: _dirname + '/views/layouts/',
 }))
+// setup static public dir
+app.use(express.static('public'));
+
 const mysql = require('mysql')
 
 const bodyParser = require('body-parser')
