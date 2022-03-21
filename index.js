@@ -26,7 +26,7 @@ var con = mysql.createConnection({
     host: "localhost",
     user: "root",
     password: "qwerty",
-    database: "mydb"
+    database: "yoga_mysql"
 })
 
 con.connect(function(err) {
@@ -42,7 +42,7 @@ app.get('/', (req, res) => {
         if (err) throw err;
         articles = result
         res.render('index', {
-            articles: articles
+            article: articles
         })
     })
 });
@@ -61,6 +61,6 @@ app.get('/article/:slug', (req, res) => {
 });
 
 // app start point
-app.listen(3001, () => {
+app.listen(3000, () => {
     console.log('App is started at http://localhost:3000');
 });
